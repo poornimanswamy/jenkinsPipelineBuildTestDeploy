@@ -13,7 +13,7 @@ node('master') {
                 '''
             }
       steps{
-        sh 'mvn install' 
+        maven 'clean install' 
       } 
       post {
           success {
