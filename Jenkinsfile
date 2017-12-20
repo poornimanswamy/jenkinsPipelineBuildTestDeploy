@@ -1,24 +1,3 @@
-node('master') {
-  
-   stage('Git Checkout'){
-      git 'https://github.com/poornimanswamy/spring-petclinic.git'
-      echo 'checkout done'
-   }
-
-   stage('Maven Build'){
-      echo 'Maven Project Compile'
-      maven 'clean install'
-      junit 'target/surefire-reports/**/*.xml'
-   }
-
-
-   stage 'Deploy'
-        echo 'Deploying Docker Image'
-
-
-   stage 'Testing'
-        echo 'Reporting Getting Creating'
-
-   stage 'Job Status Report'
-        echo 'Sending Notification'
-}
+node('master'){checkout([$class: 'GitSCM', branches: [[name: '*/master']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/poornimanswamy/spring-petclinic'], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/poornimanswamy/spring-petclinic.git']]])
+bat 'mvnw:cmd clean install'
+bat '''cd dockercd internal-dbdocker build -t spring-petclinic .'''}
