@@ -1,7 +1,7 @@
 node('master') {
   
    stage('Git Checkout'){
-      git 'https://github.com/savishy/spring-petclinic.git'
+      git 'https://github.com/poornimanswamy/spring-petclinic.git'
       echo 'checkout done'
    }
 
